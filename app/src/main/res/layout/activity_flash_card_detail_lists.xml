@@ -4,39 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TopicLists">
+    tools:context=".FlashCardDetailLists"
+    >
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:theme="@style/AppTheme.NoActionBar"
         >
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/appbarlayout_tool_bar"
+            android:id="@+id/appbarlayout_tool_bar_fc"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/mainColor"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:popupTheme="@style/AppTheme.NoActionBar"
             app:layout_scrollFlags="scroll|snap|enterAlways"
             >
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/txtToolbarTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Topics"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textSize="30sp"
                 android:textColor="@color/MauTrang"
-                />
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                 />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/appbarlayout_recycler_view"
+        android:id="@+id/appbarlayout_recycler_view_fc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>

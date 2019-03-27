@@ -6,17 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nhatdo.whatisthis.bean.FlashCardDetails;
 import com.nhatdo.whatisthis.bean.TopicHolder;
 import com.nhatdo.whatisthis.bean.Topics;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class AppBarLayoutRecyclerViewDataAdapter extends RecyclerView.Adapter<TopicHolder> {
 
-    private List<Topics> topicList;
+    ArrayList<Topics> listTopics;
+    ArrayList<FlashCardDetails> listFCs;
 
-    public AppBarLayoutRecyclerViewDataAdapter(List<Topics> topicList) {
-        this.topicList = topicList;
+    public AppBarLayoutRecyclerViewDataAdapter(ArrayList<Topics> listTopics) {
+        this.listTopics = listTopics;
     }
 
     @NonNull
@@ -26,7 +28,6 @@ public class AppBarLayoutRecyclerViewDataAdapter extends RecyclerView.Adapter<To
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         // Inflate the RecyclerView item layout xml.
         View topicItemView = layoutInflater.inflate(R.layout.activity_app_bar_layout_recycler_view_item, viewGroup, false);
-
         // Create and return our custom Car Recycler View Item Holder object.
         TopicHolder ret = new TopicHolder(topicItemView);
         return ret;
@@ -34,15 +35,13 @@ public class AppBarLayoutRecyclerViewDataAdapter extends RecyclerView.Adapter<To
 
     @Override
     public void onBindViewHolder(@NonNull TopicHolder topicHolder, int position) {
-        if (topicList != null) {
-            // Get car item dto in list.
-            Topics topicItem = topicList.get(position);
-
+        if (listTopics != null) {
+            // Get topic item dto in list.
+            Topics topicItem = listTopics.get(position);
             if (topicItem != null) {
-                // Set car item title.
+                // Set topic item title.
                 topicHolder.getTopicName().setText(topicItem.getName());
-                // Set car image resource id.
-//                topicHolder.getTopicImage().setImageResource(R.drawable.animal_banner);
+                // Set topic image resource id.
                 topicHolder.getTopicImage().setImageResource(topicItem.getTopicBackground());
             }
         }
@@ -51,10 +50,11 @@ public class AppBarLayoutRecyclerViewDataAdapter extends RecyclerView.Adapter<To
     @Override
     public int getItemCount() {
         int ret = 0;
-        if (topicList != null) {
-            ret = topicList.size();
+        if (listTopics != null) {
+            ret = listTopics.size();
         }
         return ret;
     }
+
 
 }

@@ -2,9 +2,12 @@ package com.nhatdo.whatisthis;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.nhatdo.whatisthis.SqlHelper.MyDatabaseHelper;
@@ -21,13 +24,12 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         final Intent intent = new Intent(this, MainActivity.class);
         final MyDatabaseHelper mySqlHelper = new MyDatabaseHelper(this);
         Thread timer = new Thread(){
             public void run(){
                 try{
-                    sleep(5000);
+                    sleep(2000);
                     mySqlHelper.insertDefaultValues();
                     ArrayList<Topics> listTopics = (ArrayList<Topics>) mySqlHelper.getAllTopicNode();
                     ArrayList<FlashCardDetails> listFCs = (ArrayList<FlashCardDetails>) mySqlHelper.getAllFCNode();
@@ -37,7 +39,7 @@ public class SplashScreen extends AppCompatActivity {
                     intent.putExtra("data", bundle);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }finally {
+                } finally {
                     startActivity(intent);
                     finish();
                 }

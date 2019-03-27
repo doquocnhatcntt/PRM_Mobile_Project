@@ -1,12 +1,17 @@
 package com.nhatdo.whatisthis.bean;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nhatdo.whatisthis.FlashCardDetailLists;
 import com.nhatdo.whatisthis.R;
+
+import java.util.ArrayList;
 
 public class TopicHolder extends RecyclerView.ViewHolder {
 

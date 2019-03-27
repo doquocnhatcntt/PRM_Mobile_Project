@@ -5,30 +5,33 @@ import java.io.Serializable;
 public class FlashCardDetails implements Serializable {
 
     private int id;
+    private int idTopic;
     private String name;
     private int code;
     private String description;
     private int imageId;
     private int audioId;
-    private int idTopic;
+    private int pronounceAudioId;
 
-    public FlashCardDetails(int id, String name, int code, String description, int imageId, int audioId, int idTopic) {
-        this.id = id;
+    public FlashCardDetails(int idTopic, String name, int code, String description, int imageId, int audioId, int pronounceAudioId) {
+        this.idTopic = idTopic;
         this.name = name;
         this.code = code;
         this.description = description;
         this.imageId = imageId;
         this.audioId = audioId;
-        this.idTopic = idTopic;
+        this.pronounceAudioId = pronounceAudioId;
     }
 
-    public FlashCardDetails(String name, int code, String description, int imageId, int audioId, int idTopic) {
+    public FlashCardDetails(int id, int idTopic, String name, int code, String description, int imageId, int audioId, int pronounceAudioId) {
+        this.id = id;
+        this.idTopic = idTopic;
         this.name = name;
         this.code = code;
         this.description = description;
         this.imageId = imageId;
         this.audioId = audioId;
-        this.idTopic = idTopic;
+        this.pronounceAudioId = pronounceAudioId;
     }
 
     public int getId() {
@@ -37,6 +40,14 @@ public class FlashCardDetails implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdTopic() {
+        return idTopic;
+    }
+
+    public void setIdTopic(int idTopic) {
+        this.idTopic = idTopic;
     }
 
     public String getName() {
@@ -79,11 +90,11 @@ public class FlashCardDetails implements Serializable {
         this.audioId = audioId;
     }
 
-    public int getIdTopic() {
-        return idTopic;
+    public int getPronounceAudioId() {
+        return pronounceAudioId;
     }
 
-    public void setIdTopic(int idTopic) {
-        this.idTopic = idTopic;
+    public void setPronounceAudioId(int pronounceAudioId) {
+        this.pronounceAudioId = pronounceAudioId;
     }
 }
