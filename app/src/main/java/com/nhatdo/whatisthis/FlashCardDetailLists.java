@@ -1,5 +1,6 @@
 package com.nhatdo.whatisthis;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,18 +38,31 @@ public class FlashCardDetailLists extends AppCompatActivity {
         listTopics = (ArrayList<Topics>) bd.getSerializable("listTopics");
         listFCsWithId = (ArrayList<FlashCardDetails>) bd.getSerializable("listFCsWithId");
 
-        Toolbar toolbarfc = (Toolbar)findViewById(R.id.appbarlayout_tool_bar_fc);
+        Toolbar toolbarfc = (Toolbar) findViewById(R.id.appbarlayout_tool_bar_fc);
         TextView FcTitle = toolbarfc.findViewById(R.id.txtToolbarTitle);
         FcTitle.setText(topicItemTitle);
         FcTitle.setTextSize(30);
         setSupportActionBar(toolbarfc);
+
+        //Set up a Back Navigator icon into a ToolBar
+        toolbarfc.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("listTopics", listTopics);
+                bundle.putSerializable("listFCsWithId", listFCsWithId);
+                Intent i = new Intent(FlashCardDetailLists.this, TopicLists.class);
+                i.putExtra("data", bundle);
+                startActivity(i);
+            }
+        });
 
         createFlashCardListUseRecyclerView();
     }
 
     private void createFlashCardListUseRecyclerView() {
         // Create the recyclerview.
-        flashCardRecyclerView = (RecyclerView)findViewById(R.id.appbarlayout_recycler_view_fc);
+        flashCardRecyclerView = (RecyclerView) findViewById(R.id.appbarlayout_recycler_view_fc);
 
         //Swipe one item at a time Recyclerview using PagerSnapHelper
         SnapHelper snapHelper = new PagerSnapHelper();

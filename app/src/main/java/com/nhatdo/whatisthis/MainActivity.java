@@ -1,6 +1,8 @@
 package com.nhatdo.whatisthis;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Topics> listTopics;
     ArrayList<FlashCardDetails> listFCs;
-    Button btnPlay;
+    Button btnPlay, btnExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,30 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, TopicLists.class);
                 i.putExtra("data", bundle);
                 startActivity(i);
+            }
+        });
+
+        btnExit = findViewById(R.id.btnExit);
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Exit");
+                builder.setMessage("Don't leave me, please!");
+                builder.setPositiveButton("Exit Now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }

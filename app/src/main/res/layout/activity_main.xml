@@ -36,6 +36,20 @@
             android:background="@color/mainButton"
             />
 
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Exit"
+            android:textStyle="bold"
+            android:textSize="23sp"
+            android:textColor="@color/splashColor_text"
+            android:background="@color/mainButton"
+            />
+
     </LinearLayout>
 
 </LinearLayout>

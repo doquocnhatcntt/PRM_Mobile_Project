@@ -26,7 +26,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     final static String TAG = "MYSQLHEPLER";
 
     //Database Version
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 5;
 
     //Database Name
     public static final String DATABASE_NAME = Config.DATABASE_NAME;
@@ -95,23 +95,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public void insertDefaultValues() {
         if (this.getCountTopic() == 0 || this.getCountFlashCards() == 0) {
-
+            Log.i(TAG, "=====> InsertDefaultValues function is running");
             //Create Topics Instance
             Topics animals = new Topics("Animal", 1, "Funny Animal", R.drawable.animal_banner);
             Topics kungfuPanda = new Topics("Kungfu Panda", 2, "Kungfu Panda Character", R.drawable.kungfupanda_character);
             Topics vehicles = new Topics("Vehicles", 3, "Vehicles", R.drawable.vehicle_banner);
             Topics plants = new Topics("Plants", 4, "Plants", R.drawable.plant_banner);
             Topics flowers = new Topics("Flowers", 5, "Flowers", R.drawable.flower_banner);
-            Topics test = new Topics("test", 6, "test", R.drawable.flower_banner);
-            Topics test2 = new Topics("test2", 7, "test", R.drawable.flower_banner);
             //Add Topics to DB
             addTopic(animals);
             addTopic(kungfuPanda);
             addTopic(vehicles);
             addTopic(plants);
             addTopic(flowers);
-            addTopic(test);
-            addTopic(test2);
 
             //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             //Create Flash Cards - animal - Index 01
