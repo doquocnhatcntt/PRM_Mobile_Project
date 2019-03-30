@@ -38,7 +38,6 @@ public class AppBarLayoutRecyclerViewDataAdapterForFC extends RecyclerView.Adapt
         if (listFCsWithId != null) {
             // Get flash card item dto in list.
             FlashCardDetails flashCardItem = listFCsWithId.get(position);
-
             if (flashCardItem != null) {
                 flashCardDetailHolder.getFC_ID().setText(String.valueOf(flashCardItem.getCode()));
                 flashCardDetailHolder.getFC_Name().setText(flashCardItem.getName());

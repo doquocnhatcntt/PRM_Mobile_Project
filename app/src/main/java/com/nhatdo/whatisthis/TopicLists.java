@@ -23,6 +23,7 @@ public class TopicLists extends AppCompatActivity {
     String topicItemTitle;
     ArrayList<Topics> listTopics;
     ArrayList<FlashCardDetails> listFCs;
+    ArrayList<FlashCardDetails> listFCsWithId;
     RecyclerView topicRecyclerView;
 
     @Override
@@ -72,11 +73,11 @@ public class TopicLists extends AppCompatActivity {
             public void onClick(View view, int position) {
                 int positionPlus = position + 1;
                 topicItemTitle = listTopics.get(position).getName();
-                ArrayList<FlashCardDetails> listFCsWithId = (ArrayList<FlashCardDetails>) myDatabaseHelper.getFCNodeWithIDTopic(positionPlus);
+                listFCsWithId = (ArrayList<FlashCardDetails>) myDatabaseHelper.getFCNodeWithIDTopic(positionPlus);
                 System.out.println("=====> listFCsWithId.size(): " + listFCsWithId.size());
 
                 //Check for each card with short click
-//                Toast.makeText(getApplicationContext(), "This is Add On Item Touch Listener with position = " + position, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "This is Add On Item Touch Listener with position = " + position, Toast.LENGTH_LONG).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("topicItemTitle", topicItemTitle);
                 bundle.putSerializable("listTopics", listTopics);
@@ -88,8 +89,19 @@ public class TopicLists extends AppCompatActivity {
 
             @Override
             public void onLongClick(View view, int position) {
-//                Check for each card with short click
-                Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_LONG).show();
+                int positionPlus = position + 1;
+                topicItemTitle = listTopics.get(position).getName();
+                listFCsWithId = (ArrayList<FlashCardDetails>) myDatabaseHelper.getFCNodeWithIDTopic(positionPlus);
+
+                //Check for each card with short click
+                //Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_LONG).show();
+                Bundle bundle = new Bundle();
+                bundle.putString("topicItemTitle", topicItemTitle);
+                bundle.putSerializable("listTopics", listTopics);
+                bundle.putSerializable("listFCsWithId", listFCsWithId);
+                Intent i = new Intent(TopicLists.this, FlashCardTest.class);
+                i.putExtra("data", bundle);
+                startActivity(i);
             }
         }));
     }

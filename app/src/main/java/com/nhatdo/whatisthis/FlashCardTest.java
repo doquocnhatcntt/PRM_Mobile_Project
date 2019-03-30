@@ -1,6 +1,8 @@
 package com.nhatdo.whatisthis;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,27 +13,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nhatdo.whatisthis.bean.FlashCardDetails;
 import com.nhatdo.whatisthis.bean.Topics;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class FlashCardDetailLists extends AppCompatActivity {
+public class FlashCardTest extends AppCompatActivity {
 
     ArrayList<Topics> listTopics;
     ArrayList<FlashCardDetails> listFCsWithId;
     RecyclerView flashCardRecyclerView;
     String topicItemTitle = "";
     UtilPlayAudio utilPlayAudio;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flash_card_detail_lists);
+        setContentView(R.layout.activity_flash_card_test);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setTitle("");
-
         Bundle bd = getIntent().getBundleExtra("data");
         topicItemTitle = bd.getString("topicItemTitle");
         listTopics = (ArrayList<Topics>) bd.getSerializable("listTopics");
@@ -39,10 +43,10 @@ public class FlashCardDetailLists extends AppCompatActivity {
 
         Toolbar toolbarfc = (Toolbar) findViewById(R.id.appbarlayout_tool_bar_fc);
         TextView FcTitle = toolbarfc.findViewById(R.id.txtToolbarTitle);
-        FcTitle.setText(topicItemTitle);
+        FcTitle.setText(topicItemTitle + " Test");
         FcTitle.setTextSize(30);
         setSupportActionBar(toolbarfc);
-
+        context = getApplicationContext();
         //Set up a Back Navigator icon into a ToolBar
         toolbarfc.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,18 +54,19 @@ public class FlashCardDetailLists extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("listTopics", listTopics);
                 bundle.putSerializable("listFCsWithId", listFCsWithId);
-                Intent i = new Intent(FlashCardDetailLists.this, TopicLists.class);
+                Intent i = new Intent(FlashCardTest.this, TopicLists.class);
                 i.putExtra("data", bundle);
                 startActivity(i);
             }
         });
 
-        createFlashCardListUseRecyclerView();
+        createFlashCardTestListUseRecyclerView();
+
     }
 
-    private void createFlashCardListUseRecyclerView() {
+    private void createFlashCardTestListUseRecyclerView() {
         // Create the recyclerview.
-        flashCardRecyclerView = (RecyclerView) findViewById(R.id.appbarlayout_recycler_view_fc);
+        flashCardRecyclerView = (RecyclerView) findViewById(R.id.appbarlayout_recycler_view_fc_test);
 
         //Swipe one item at a time Recyclerview using PagerSnapHelper
         SnapHelper snapHelper = new PagerSnapHelper();
@@ -72,7 +77,7 @@ public class FlashCardDetailLists extends AppCompatActivity {
         flashCardRecyclerView.setHasFixedSize(true);
 
         // Create the linear layout manager.
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(FlashCardDetailLists.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(FlashCardTest.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         //GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 2);
@@ -80,24 +85,25 @@ public class FlashCardDetailLists extends AppCompatActivity {
         flashCardRecyclerView.setLayoutManager(linearLayoutManager);
 
         // Create car recycler view data adapter with car item list.
-        AppBarLayoutRecyclerViewDataAdapterForFC flashCardDataAdapter = new AppBarLayoutRecyclerViewDataAdapterForFC(listFCsWithId);
+        System.out.println("=====>Check context from FlashCardTest to Adapter before transfer: context = " + context);
+        AppBarLayoutRecyclerViewDataAdapterForFCTest flashCardTestDataAdapter = new AppBarLayoutRecyclerViewDataAdapterForFCTest(listFCsWithId, context);
         // Set data adapter.
-        flashCardRecyclerView.setAdapter(flashCardDataAdapter);
+        flashCardRecyclerView.setAdapter(flashCardTestDataAdapter);
 
-        flashCardRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, flashCardRecyclerView, new RecyclerTouchListener.ClickListener() {
-
-            @Override
-            public void onClick(View view, int position) {
-//                Toast.makeText(getApplicationContext(), "Position FC at = " + position, Toast.LENGTH_LONG).show();
-                utilPlayAudio.playAudio(position, listFCsWithId, FlashCardDetailLists.this);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-//                Toast.makeText(getApplicationContext(), "LONG PRESS Position FC at = " + position, Toast.LENGTH_LONG).show();
-                utilPlayAudio.playAudioForLong(position, listFCsWithId, FlashCardDetailLists.this);
-            }
-        }));
+//        flashCardRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, flashCardRecyclerView, new RecyclerTouchListener.ClickListener() {
+//
+//            @Override
+//            public void onClick(View view, int position) {
+////                Toast.makeText(getApplicationContext(), "Position FC at = " + position, Toast.LENGTH_LONG).show();
+//                utilPlayAudio.playAudio(position, listFCsWithId, FlashCardTest.this);
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+////                Toast.makeText(getApplicationContext(), "LONG PRESS Position FC at = " + position, Toast.LENGTH_LONG).show();
+//                utilPlayAudio.playAudioForLong(position, listFCsWithId, FlashCardTest.this);
+//            }
+//        }));
     }
 
 }

@@ -16,6 +16,7 @@ public class UtilPlayAudio {
         int getPronounceAudioId = 0;
         getPronounceAudioId = list.get(position).getPronounceAudioId();
         if (getPronounceAudioId != 0) {
+            System.out.println("=====>Check context in UtilPlayAudio class: context = " + context);
             audio = MediaPlayer.create(context, getPronounceAudioId);
             if (audio.isPlaying()) {
                 stop();
