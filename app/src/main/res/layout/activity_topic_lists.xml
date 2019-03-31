@@ -19,13 +19,14 @@
             android:background="@color/mainColor"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:layout_scrollFlags="scroll|snap|enterAlways"
+            app:navigationIcon="?attr/homeAsUpIndicator"
             >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Topics"
-                android:gravity="center"
+                android:paddingLeft="70dp"
                 android:textStyle="bold"
                 android:textSize="30sp"
                 android:textColor="@color/MauTrang"

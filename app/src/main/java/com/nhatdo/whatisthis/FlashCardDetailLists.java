@@ -1,6 +1,7 @@
 package com.nhatdo.whatisthis;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +9,15 @@ import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.nhatdo.whatisthis.TutorialDialogFragment.DFFlashCard;
+import com.nhatdo.whatisthis.TutorialDialogFragment.DFTopic;
 import com.nhatdo.whatisthis.bean.FlashCardDetails;
 import com.nhatdo.whatisthis.bean.Topics;
 
@@ -24,6 +30,7 @@ public class FlashCardDetailLists extends AppCompatActivity {
     RecyclerView flashCardRecyclerView;
     String topicItemTitle = "";
     UtilPlayAudio utilPlayAudio;
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +105,24 @@ public class FlashCardDetailLists extends AppCompatActivity {
                 utilPlayAudio.playAudioForLong(position, listFCsWithId, FlashCardDetailLists.this);
             }
         }));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Get menu inflater.
+        MenuInflater menuInflater = getMenuInflater();
+
+        // Use app bar layout menu to inflate the tool bar.
+        menuInflater.inflate(R.menu.tool_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        Toast.makeText(this, "This is DFTopic Quick Help", Toast.LENGTH_LONG).show();
+        DFFlashCard dfFlashCard = new DFFlashCard();
+        dfFlashCard.show(fragmentManager, "Dialog Fragment");
+        return super.onOptionsItemSelected(item);
     }
 
 }

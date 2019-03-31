@@ -1,18 +1,20 @@
 package com.nhatdo.whatisthis;
 
 import android.content.Intent;
-import android.database.Cursor;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.nhatdo.whatisthis.SqlHelper.Config;
 import com.nhatdo.whatisthis.SqlHelper.MyDatabaseHelper;
+import com.nhatdo.whatisthis.TutorialDialogFragment.DFTopic;
 import com.nhatdo.whatisthis.bean.FlashCardDetails;
 import com.nhatdo.whatisthis.bean.Topics;
 
@@ -25,6 +27,7 @@ public class TopicLists extends AppCompatActivity {
     ArrayList<FlashCardDetails> listFCs;
     ArrayList<FlashCardDetails> listFCsWithId;
     RecyclerView topicRecyclerView;
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,19 @@ public class TopicLists extends AppCompatActivity {
         Bundle bd = getIntent().getBundleExtra("data");
         listTopics = (ArrayList<Topics>) bd.getSerializable("listTopics");
         listFCs = (ArrayList<FlashCardDetails>) bd.getSerializable("listFCs");
+
+        //Set up a Back Navigator icon into a ToolBar
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("listTopics", listTopics);
+                bundle.putSerializable("listFCsWithId", listFCsWithId);
+                Intent i = new Intent(TopicLists.this, MainActivity.class);
+                i.putExtra("data", bundle);
+                startActivity(i);
+            }
+        });
 
         createTopicListUseRecyclerView();
 
@@ -104,6 +120,24 @@ public class TopicLists extends AppCompatActivity {
                 startActivity(i);
             }
         }));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Get menu inflater.
+        MenuInflater menuInflater = getMenuInflater();
+
+        // Use app bar layout menu to inflate the tool bar.
+        menuInflater.inflate(R.menu.tool_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        Toast.makeText(this, "This is DFTopic Quick Help", Toast.LENGTH_LONG).show();
+        DFTopic dfTopic = new DFTopic();
+        dfTopic.show(fragmentManager, "Dialog Fragment");
+        return super.onOptionsItemSelected(item);
     }
 
 }
