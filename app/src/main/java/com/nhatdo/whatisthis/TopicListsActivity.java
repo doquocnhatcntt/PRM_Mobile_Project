@@ -20,7 +20,7 @@ import com.nhatdo.whatisthis.bean.Topics;
 
 import java.util.ArrayList;
 
-public class TopicLists extends AppCompatActivity {
+public class TopicListsActivity extends AppCompatActivity {
 
     String topicItemTitle;
     ArrayList<Topics> listTopics;
@@ -35,56 +35,47 @@ public class TopicLists extends AppCompatActivity {
         setContentView(R.layout.activity_topic_lists);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.appbarlayout_tool_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.appbarlayout_tool_bar);
         setSupportActionBar(toolbar);
 
         Bundle bd = getIntent().getBundleExtra("data");
         listTopics = (ArrayList<Topics>) bd.getSerializable("listTopics");
         listFCs = (ArrayList<FlashCardDetails>) bd.getSerializable("listFCs");
 
-        //Set up a Back Navigator icon into a ToolBar
+        //Set up a Back Navigator icon onto a ToolBar
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("listTopics", listTopics);
                 bundle.putSerializable("listFCsWithId", listFCsWithId);
-                Intent i = new Intent(TopicLists.this, MainActivity.class);
+                Intent i = new Intent(TopicListsActivity.this, MainActivity.class);
                 i.putExtra("data", bundle);
                 startActivity(i);
             }
         });
-
         createTopicListUseRecyclerView();
-
     }
 
     // This method shows how to customize SimpleAdapter to show image and text in ListView.
-    private void createTopicListUseRecyclerView()
-    {
+    private void createTopicListUseRecyclerView() {
         final MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(this);
-        // Create the recyclerview.
-        topicRecyclerView = (RecyclerView)findViewById(R.id.appbarlayout_recycler_view);
-
-        //Use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
+        // Create the Recycler View.
+        topicRecyclerView = (RecyclerView) findViewById(R.id.appbarlayout_recycler_view);
+        /*Use this setting to improve performance if you know that changes
+          in content do not change the layout size of the RecyclerView*/
         topicRecyclerView.setHasFixedSize(true);
-
         //Create the linear layout manager.
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TopicLists.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TopicListsActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-        //GridLayoutManager linearLayoutManager = new GridLayoutManager(this, 2);
-        // Set layout manager.
+        //Set layout manager.
         topicRecyclerView.setLayoutManager(linearLayoutManager);
-
-        // Create car recycler view data adapter with car item list.
-        AppBarLayoutRecyclerViewDataAdapter topicDataAdapter = new AppBarLayoutRecyclerViewDataAdapter(listTopics);
+        // Create topic recycler view data adapter with topic item list.
+        TopicListsAdapter topicDataAdapter = new TopicListsAdapter(listTopics);
         // Set data adapter.
         topicRecyclerView.setAdapter(topicDataAdapter);
-
+        //Set Touch Listener
         topicRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, topicRecyclerView, new RecyclerTouchListener.ClickListener() {
-
             @Override
             public void onClick(View view, int position) {
                 int positionPlus = position + 1;
@@ -98,7 +89,7 @@ public class TopicLists extends AppCompatActivity {
                 bundle.putString("topicItemTitle", topicItemTitle);
                 bundle.putSerializable("listTopics", listTopics);
                 bundle.putSerializable("listFCsWithId", listFCsWithId);
-                Intent i = new Intent(TopicLists.this, FlashCardDetailLists.class);
+                Intent i = new Intent(TopicListsActivity.this, FlashCardDetailListsActivity.class);
                 i.putExtra("data", bundle);
                 startActivity(i);
             }
@@ -109,19 +100,20 @@ public class TopicLists extends AppCompatActivity {
                 topicItemTitle = listTopics.get(position).getName();
                 listFCsWithId = (ArrayList<FlashCardDetails>) myDatabaseHelper.getFCNodeWithIDTopic(positionPlus);
 
-                //Check for each card with short click
+                //Check for each card with long press
                 //Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_LONG).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("topicItemTitle", topicItemTitle);
                 bundle.putSerializable("listTopics", listTopics);
                 bundle.putSerializable("listFCsWithId", listFCsWithId);
-                Intent i = new Intent(TopicLists.this, FlashCardTest.class);
+                Intent i = new Intent(TopicListsActivity.this, FlashCardTestActivity.class);
                 i.putExtra("data", bundle);
                 startActivity(i);
             }
         }));
     }
 
+    //Create and set OnClick Tool Bar Menu For Topic List Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Get menu inflater.
@@ -134,10 +126,9 @@ public class TopicLists extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        Toast.makeText(this, "This is DFTopic Quick Help", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "This is DFTopic Quick Help", Toast.LENGTH_LONG).show();
         DFTopic dfTopic = new DFTopic();
         dfTopic.show(fragmentManager, "Dialog Fragment");
         return super.onOptionsItemSelected(item);
     }
-
 }

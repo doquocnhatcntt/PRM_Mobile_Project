@@ -22,13 +22,12 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         final Intent intent = new Intent(this, MainActivity.class);
         final MyDatabaseHelper mySqlHelper = new MyDatabaseHelper(this);
-        Thread timer = new Thread(){
-            public void run(){
-                try{
+        Thread timer = new Thread() {
+            public void run() {
+                try {
                     sleep(2000);
                     mySqlHelper.insertDefaultValues();
                     ArrayList<Topics> listTopics = (ArrayList<Topics>) mySqlHelper.getAllTopicNode();

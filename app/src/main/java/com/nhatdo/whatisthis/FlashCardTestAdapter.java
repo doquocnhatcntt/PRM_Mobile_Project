@@ -6,12 +6,9 @@ import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.nhatdo.whatisthis.bean.FlashCardDetailTestHolder;
 import com.nhatdo.whatisthis.bean.FlashCardDetails;
@@ -20,16 +17,13 @@ import com.nhatdo.whatisthis.bean.Topics;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class AppBarLayoutRecyclerViewDataAdapterForFCTest extends RecyclerView.Adapter<FlashCardDetailTestHolder> {
+public class FlashCardTestAdapter extends RecyclerView.Adapter<FlashCardDetailTestHolder> {
 
-    public MediaPlayer audio;
-    ArrayList<Topics> listTopics;
     ArrayList<FlashCardDetails> listFCsWithId;
     UtilPlayAudio utilPlayAudio;
-    FlashCardTest flashCardTest;
     private Context mContext;
 
-    public AppBarLayoutRecyclerViewDataAdapterForFCTest(ArrayList<FlashCardDetails> listFCsWithId, Context context) {
+    public FlashCardTestAdapter(ArrayList<FlashCardDetails> listFCsWithId, Context context) {
         this.listFCsWithId = listFCsWithId;
         this.mContext = context;
     }
@@ -40,10 +34,10 @@ public class AppBarLayoutRecyclerViewDataAdapterForFCTest extends RecyclerView.A
         // Get LayoutInflater object.
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         // Inflate the RecyclerView item layout xml.
-        View flashCardItemView = layoutInflater.inflate(R.layout.activity_app_bar_layout_recycler_view_item_flash_card_test, viewGroup, false);
+        View flashCardItemView = layoutInflater.inflate(R.layout.activity_flash_card_test_recycler_view_item, viewGroup, false);
         // Create and return our custom Car Recycler View Item Holder object.
-        FlashCardDetailTestHolder ret = new FlashCardDetailTestHolder(flashCardItemView);
-        return ret;
+        FlashCardDetailTestHolder flashCardDetailTestHolder = new FlashCardDetailTestHolder(flashCardItemView);
+        return flashCardDetailTestHolder;
     }
 
     @Override
@@ -56,10 +50,9 @@ public class AppBarLayoutRecyclerViewDataAdapterForFCTest extends RecyclerView.A
             int randomPosition = random.nextInt((max - min) + 1) + min;
             int randomButton = random.nextInt(2);
             System.out.println("=====> randomButton: " + randomButton);
-            final String name1, name2;
 
             //Check if the position = ramdomNumer... It's mean 2 button have same name
-            if(position == randomPosition){
+            if (position == randomPosition) {
                 System.out.println("=====>position == randomPosition<=====");
                 randomPosition = random.nextInt((max - min) + 1) + min;
             }
@@ -71,14 +64,14 @@ public class AppBarLayoutRecyclerViewDataAdapterForFCTest extends RecyclerView.A
             System.out.println("=====>randomPosition : " + randomPosition);
 
             if (flashCardItem != null) {
-                if(randomButton == 1){
+                if (randomButton == 1) {
                     //For Choice button no 1
                     flashCardDetailTestHolder.getFC_Button_Name_one().setText(flashCardItem.getName());
                     flashCardDetailTestHolder.getFC_Button_Name_one().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             flashCardDetailTestHolder.getFC_Button_Name_one().getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
-//                            flashCardDetailTestHolder.getFC_Button_Name_two().setVisibility(View.GONE);
+                            //flashCardDetailTestHolder.getFC_Button_Name_two().setVisibility(View.GONE);
                             flashCardDetailTestHolder.getFC_Button_Name_two().setEnabled(false);
                         }
                     });
@@ -89,18 +82,18 @@ public class AppBarLayoutRecyclerViewDataAdapterForFCTest extends RecyclerView.A
                         @Override
                         public void onClick(View v) {
                             flashCardDetailTestHolder.getFC_Button_Name_two().getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
-//                            flashCardDetailTestHolder.getFC_Button_Name_one().setVisibility(View.GONE);
+                            //flashCardDetailTestHolder.getFC_Button_Name_one().setVisibility(View.GONE);
                             flashCardDetailTestHolder.getFC_Button_Name_one().setEnabled(false);
                         }
                     });
-                }else{
+                } else {
                     //For Choice button no 2
                     flashCardDetailTestHolder.getFC_Button_Name_two().setText(flashCardItem.getName());
                     flashCardDetailTestHolder.getFC_Button_Name_two().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             flashCardDetailTestHolder.getFC_Button_Name_two().getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
-//                            flashCardDetailTestHolder.getFC_Button_Name_one().setVisibility(View.GONE);
+                            //flashCardDetailTestHolder.getFC_Button_Name_one().setVisibility(View.GONE);
                             flashCardDetailTestHolder.getFC_Button_Name_one().setEnabled(false);
                         }
                     });
@@ -111,11 +104,10 @@ public class AppBarLayoutRecyclerViewDataAdapterForFCTest extends RecyclerView.A
                         @Override
                         public void onClick(View v) {
                             flashCardDetailTestHolder.getFC_Button_Name_one().getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
-//                            flashCardDetailTestHolder.getFC_Button_Name_two().setVisibility(View.GONE);
+                            //flashCardDetailTestHolder.getFC_Button_Name_two().setVisibility(View.GONE);
                             flashCardDetailTestHolder.getFC_Button_Name_two().setEnabled(false);
                         }
                     });
-
                 }
 
                 flashCardDetailTestHolder.getFC_Image().setImageResource(flashCardItem.getImageId());
@@ -141,5 +133,4 @@ public class AppBarLayoutRecyclerViewDataAdapterForFCTest extends RecyclerView.A
         }
         return ret;
     }
-
 }

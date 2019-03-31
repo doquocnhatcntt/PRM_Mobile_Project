@@ -12,25 +12,24 @@ import com.nhatdo.whatisthis.bean.Topics;
 
 import java.util.ArrayList;
 
-public class AppBarLayoutRecyclerViewDataAdapterForFC extends RecyclerView.Adapter<FlashCardDetailHolder> {
+public class FlashCardDetailListsAdapter extends RecyclerView.Adapter<FlashCardDetailHolder> {
 
-    ArrayList<Topics> listTopics;
     ArrayList<FlashCardDetails> listFCsWithId;
 
-    public AppBarLayoutRecyclerViewDataAdapterForFC(ArrayList<FlashCardDetails> listFCsWithId) {
+    public FlashCardDetailListsAdapter(ArrayList<FlashCardDetails> listFCsWithId) {
         this.listFCsWithId = listFCsWithId;
     }
 
     @NonNull
     @Override
     public FlashCardDetailHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        // Get LayoutInflater object.
+        //Get LayoutInflater object.
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        // Inflate the RecyclerView item layout xml.
-        View flashCardItemView = layoutInflater.inflate(R.layout.activity_app_bar_layout_recycler_view_item_flash_card, viewGroup, false);
-        // Create and return our custom Car Recycler View Item Holder object.
-        FlashCardDetailHolder ret = new FlashCardDetailHolder(flashCardItemView);
-        return ret;
+        //Inflate the RecyclerView item layout xml.
+        View flashCardItemView = layoutInflater.inflate(R.layout.activity_flash_card_detail_lists_recycler_view_item, viewGroup, false);
+        //Create and return our custom Flash Card Recycler View Item Holder object.
+        FlashCardDetailHolder flashCardDetailHolder = new FlashCardDetailHolder(flashCardItemView);
+        return flashCardDetailHolder;
     }
 
     @Override
@@ -57,5 +56,4 @@ public class AppBarLayoutRecyclerViewDataAdapterForFC extends RecyclerView.Adapt
         }
         return ret;
     }
-
 }

@@ -15,7 +15,7 @@ public class DFFlashCardTest extends DialogFragment {
 
     Button btnOkInFCQuiz;
 
-    public DFFlashCardTest(){
+    public DFFlashCardTest() {
     }
 
     @Nullable

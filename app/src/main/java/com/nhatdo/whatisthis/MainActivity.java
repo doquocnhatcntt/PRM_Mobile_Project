@@ -6,7 +6,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("listTopics", listTopics);
                 bundle.putSerializable("listFCs", listFCs);
-                Intent i = new Intent(MainActivity.this, TopicLists.class);
+                Intent i = new Intent(MainActivity.this, TopicListsActivity.class);
                 i.putExtra("data", bundle);
                 startActivity(i);
             }

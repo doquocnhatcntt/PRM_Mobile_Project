@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FlashCardTest"></activity>
+        <activity android:name=".FlashCardTestActivity"></activity>
         <activity
-            android:name=".FlashCardDetailLists"
+            android:name=".FlashCardDetailListsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TopicLists"
+            android:name=".TopicListsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"

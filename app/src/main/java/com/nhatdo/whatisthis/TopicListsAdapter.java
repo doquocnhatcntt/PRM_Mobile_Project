@@ -12,25 +12,24 @@ import com.nhatdo.whatisthis.bean.Topics;
 
 import java.util.ArrayList;
 
-public class AppBarLayoutRecyclerViewDataAdapter extends RecyclerView.Adapter<TopicHolder> {
+public class TopicListsAdapter extends RecyclerView.Adapter<TopicHolder> {
 
     ArrayList<Topics> listTopics;
-    ArrayList<FlashCardDetails> listFCs;
 
-    public AppBarLayoutRecyclerViewDataAdapter(ArrayList<Topics> listTopics) {
+    public TopicListsAdapter(ArrayList<Topics> listTopics) {
         this.listTopics = listTopics;
     }
 
     @NonNull
     @Override
     public TopicHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        // Get LayoutInflater object.
+        //Get LayoutInflater object.
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        // Inflate the RecyclerView item layout xml.
-        View topicItemView = layoutInflater.inflate(R.layout.activity_app_bar_layout_recycler_view_item, viewGroup, false);
-        // Create and return our custom Car Recycler View Item Holder object.
-        TopicHolder ret = new TopicHolder(topicItemView);
-        return ret;
+        //Inflate the RecyclerView item layout xml.
+        View topicItemView = layoutInflater.inflate(R.layout.activity_topic_lists_recycler_view_item, viewGroup, false);
+        //Create and return our custom Topic Recycler View Item Holder object.
+        TopicHolder topicHolder = new TopicHolder(topicItemView);
+        return topicHolder;
     }
 
     @Override
@@ -55,6 +54,4 @@ public class AppBarLayoutRecyclerViewDataAdapter extends RecyclerView.Adapter<To
         }
         return ret;
     }
-
-
 }
