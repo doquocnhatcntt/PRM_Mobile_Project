@@ -7,7 +7,7 @@ Mini mobile project using Android Studio and SQLite
 |Gmail: doquocnhatcntt@gmail.com            | 
 |                                           |    
 |P/s: Feel free to contact me!              |
-|-------------------------------------------|
+||
 
 ----------------------------------------Context----------------------------------------
 1. Children today have been exposed to technology very early, such as phones or tablets.
@@ -15,6 +15,7 @@ Mini mobile project using Android Studio and SQLite
 ---------------------------------------------------------------------------------------
 
 ----------That why I build the app (for kids)----------
+
 This App:
 1. Easy to use.
 2. Easy to learn.
